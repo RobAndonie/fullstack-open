@@ -1,2 +1,0 @@
-# fullstack-open
-# fullstack-open
