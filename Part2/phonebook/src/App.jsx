@@ -1,13 +1,18 @@
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Contacts from "./components/Contacts";
-import { useState } from "react";
+import { getNumbers } from "./services/server";
+import { useState, useEffect } from "react";
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", number: "040-1234567" },
-  ]);
+  const [persons, setPersons] = useState([]);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    getNumbers()
+      .then((numbers) => setPersons(numbers))
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <div>
@@ -18,7 +23,7 @@ const App = () => {
       <PersonForm persons={persons} setPersons={setPersons} />
 
       <h2>Numbers</h2>
-      <Contacts persons={persons} search={search} />
+      <Contacts persons={persons} setPersons={setPersons} search={search} />
     </div>
   );
 };

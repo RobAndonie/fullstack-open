@@ -1,3 +1,4 @@
+import { addNumber, updateNumber } from "../services/server";
 import { useState } from "react";
 
 const PersonForm = ({ persons, setPersons }) => {
@@ -20,17 +21,43 @@ const PersonForm = ({ persons, setPersons }) => {
         (person) => person.name.toLowerCase() === newName.toLowerCase()
       )
     ) {
-      alert(`${newName} is already added to phonebook`);
+      if (
+        window.confirm(
+          `${newName} is already on the phonebook. Do you want to update the number?`
+        )
+      ) {
+        const oldPerson = persons.find(
+          (person) => person.name.toLowerCase() === newName.toLowerCase()
+        );
+        const updatedPerson = { ...oldPerson, number: newNumber };
+
+        updateNumber(oldPerson.id, updatedPerson)
+          .then((updatedPerson) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== updatedPerson.id ? person : updatedPerson
+              )
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     } else {
       const newPerson = {
         name: newName,
         number: newNumber,
       };
 
-      setPersons(persons.concat(newPerson));
-      setNewName("");
-      setNewNumber("");
+      addNumber(newPerson)
+        .then((addedPerson) => {
+          setPersons(persons.concat(addedPerson));
+        })
+        .catch((error) => console.log(error));
     }
+
+    setNewName("");
+    setNewNumber("");
   };
 
   return (

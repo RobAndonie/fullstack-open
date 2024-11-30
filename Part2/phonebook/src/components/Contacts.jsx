@@ -1,4 +1,15 @@
-const Contacts = ({ persons, search }) => {
+import { deleteNumber } from "../services/server";
+
+const Contacts = ({ persons, setPersons, search }) => {
+  const handleDelete = (id) => {
+    deleteNumber(id)
+      .then((response) => {
+        console.log(response);
+        setPersons(persons.filter((person) => person.id !== id));
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <ul>
       {persons
@@ -7,7 +18,9 @@ const Contacts = ({ persons, search }) => {
         )
         .map((person) => (
           <li key={person.name}>
-            {person.name} {person.number}
+            <span>{person.name} </span>
+            <span>{person.number} </span>
+            <button onClick={() => handleDelete(person.id)}>Delete</button>
           </li>
         ))}
     </ul>
