@@ -13,9 +13,7 @@ const Contacts = ({ persons, setPersons, search }) => {
   return (
     <ul>
       {persons
-        .filter((person) =>
-          person.name.toLowerCase().includes(search.toLowerCase())
-        )
+        .filter((person) => person.name.toLowerCase().includes(search.toLowerCase()))
         .map((person) => (
           <li key={person.name}>
             <span>{person.name} </span>
