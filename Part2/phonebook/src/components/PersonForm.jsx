@@ -49,8 +49,7 @@ const PersonForm = ({ persons, setPersons, setMessage }) => {
           setMessage({ text: `Added ${addedPerson.name}.`, type: "success" });
         })
         .catch((error) => {
-          console.log(error);
-          setMessage({ text: `There was an error adding the new contact.`, type: "error" });
+          setMessage({ text: error.response.data.error, type: "error" });
         });
     }
 
