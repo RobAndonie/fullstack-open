@@ -1,14 +1,49 @@
 ###
 GET http://localhost:3003/api/blogs/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp1bGVzdmVybmUiLCJpZCI6IjY3YjVlOTlmYjc1Mjg4NmYzMjIzMWU4YSIsImlhdCI6MTc0MDA1OTQ3Nn0.HHpLMxHBLI7rSk76WUHIAgauyzldTySZd5FVnBYt7fQ
 
 
 ###
 POST http://localhost:3003/api/blogs/
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp1bGVzdmVybmUiLCJpZCI6IjY3YjVlOTlmYjc1Mjg4NmYzMjIzMWU4YSIsImlhdCI6MTc0MDA1OTQ3Nn0.HHpLMxHBLI7rSk76WUHIAgauyzldTySZd5FVnBYt7fQ
 
 {
-  "title": "Test",
-  "autor": "Test",
-  "url": "Test",
-  "likes": 0
+  "title": "Let's go to the moon!",
+  "author": "Jules Verne",
+  "url": "julesverne.com",
+  "likes": 45,
+  "userId": "67b5e99fb752886f32231e8a"
+}
+
+
+###
+DELETE http://localhost:3003/api/blogs/67b7377474241a709fecf60a
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp1bGVzdmVybmUiLCJpZCI6IjY3YjVlOTlmYjc1Mjg4NmYzMjIzMWU4YSIsImlhdCI6MTc0MDA1OTQ3Nn0.HHpLMxHBLI7rSk76WUHIAgauyzldTySZd5FVnBYt7fQ
+
+
+###
+GET http://localhost:3003/api/users
+
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "julesverne",
+  "name": "Jules Verne",
+  "password": "center"
+}
+
+
+###
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "julesverne",
+  "password": "center"
 }
