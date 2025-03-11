@@ -2,18 +2,16 @@ import blogService from "../services/blogs";
 import { useState } from "react";
 
 export default function NewBlog({
-  user,
+  setNotification,
   setShowNotification,
-  setNotificationText,
-  setNotificationType,
+  blogFormRef,
 }) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setURL] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("user:", user);
+  const handleSubmit = async () => {
+    blogFormRef.current.toggleVisibility();
 
     const newBlog = { title, author, url };
 
@@ -21,15 +19,20 @@ export default function NewBlog({
       const response = await blogService.createBlog(newBlog);
 
       setShowNotification(true);
-      setNotificationType("good");
-      setNotificationText(`New blog created: ${response.title}`);
+      setNotification({
+        type: "good",
+        text: `New blog created: ${response.title}`,
+      });
+
       setTimeout(() => setShowNotification(false), 3000);
     } catch (error) {
       setShowNotification(true);
-      setNotificationType("error");
-      setNotificationText("Error creating new blog");
-      setTimeout(() => setShowNotification(false), 3000);
+      setNotification({
+        type: "error",
+        text: "Error creating new blog",
+      });
 
+      setTimeout(() => setShowNotification(false), 3000);
       console.log(error);
     }
   };

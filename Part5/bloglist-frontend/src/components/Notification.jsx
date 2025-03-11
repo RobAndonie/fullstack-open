@@ -1,13 +1,18 @@
-export default function Notification({ text, type }) {
+export default function Notification({ notification }) {
   const notificationStyle = {
     borderStyle: "solid",
-    borderColor: type === "error" ? "red" : type === "good" ? "green" : "blue",
+    borderColor:
+      notification.type === "error"
+        ? "red"
+        : notification.type === "good"
+        ? "green"
+        : "blue",
     backgroundColor: "lightGrey",
   };
 
   return (
     <div style={notificationStyle}>
-      <p>{text}</p>
+      <p>{notification.text}</p>
     </div>
   );
 }

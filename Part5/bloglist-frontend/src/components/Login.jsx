@@ -5,8 +5,7 @@ import blogs from "../services/blogs";
 export default function Login({
   setUser,
   setShowNotification,
-  setNotificationText,
-  setNotificationType,
+  setNotification,
 }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,16 +21,20 @@ export default function Login({
       setUser(user);
 
       setShowNotification(true);
-      setNotificationType("good");
-      setNotificationText(`Log in valid, welcome, ${user.name}`);
+      setNotification({
+        type: "good",
+        text: `Log in valid, welcome, ${user.name}`,
+      });
 
       setTimeout(() => setShowNotification(false), 3000);
     } catch (error) {
       setShowNotification(true);
-      setNotificationType("error");
-      setNotificationText("Wrong username or password");
-      setTimeout(() => setShowNotification(false), 3000);
+      setNotification({
+        type: "error",
+        text: "Wrong username or password",
+      });
 
+      setTimeout(() => setShowNotification(false), 3000);
       console.log(error);
     }
   };

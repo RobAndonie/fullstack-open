@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Blog from "./components/Blog";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
+import Toggable from "./components/Toggable";
 import NewBlog from "./components/NewBlog";
 import Notification from "./components/Notification";
 import blogService from "./services/blogs";
@@ -11,13 +12,14 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationType, setNotificationType] = useState("");
-  const [notificationText, setNotificationText] = useState("");
+  const [notification, setNotification] = useState(null);
+
+  const blogFormRef = useRef();
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
+    const loggedUser = JSON.parse(loggedUserJSON);
     if (loggedUserJSON) {
-      const loggedUser = JSON.parse(loggedUserJSON);
       setUser(loggedUser);
       blogService.setToken(loggedUser.token);
     }
@@ -36,25 +38,42 @@ const App = () => {
 
   return (
     <div>
-      {showNotification && (
-        <Notification type={notificationType} text={notificationText} />
-      )}
+      {showNotification && <Notification notification={notification} />}
 
       {user ? (
         <div>
           <h1>Welcome {user.name}!</h1>
           <h2>blogs</h2>
 
-          {blogs.map((blog) => (
-            <Blog key={blog.id} blog={blog} />
-          ))}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "32px",
+              marginBottom: "4rem",
+            }}
+          >
+            {blogs
+              .sort((a, b) => a.likes - b.likes)
+              .reverse()
+              .map((blog) => (
+                <Blog
+                  key={blog.id}
+                  blog={blog}
+                  blogs={blogs}
+                  setBlogs={setBlogs}
+                  user={user}
+                />
+              ))}
+          </div>
 
-          <NewBlog
-            user={user}
-            setShowNotification={setShowNotification}
-            setNotificationText={setNotificationText}
-            setNotificationType={setNotificationType}
-          />
+          <Toggable buttonLabel="New Blog" ref={blogFormRef}>
+            <NewBlog
+              setShowNotification={setShowNotification}
+              notification={notification}
+              blogFormRef={blogFormRef}
+            />
+          </Toggable>
 
           <Logout setUser={setUser} />
         </div>
@@ -62,8 +81,7 @@ const App = () => {
         <Login
           setUser={setUser}
           setShowNotification={setShowNotification}
-          setNotificationText={setNotificationText}
-          setNotificationType={setNotificationType}
+          setNotification={setNotification}
         />
       )}
     </div>
