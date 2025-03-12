@@ -11,6 +11,9 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
   };
 
   const handleDelete = () => {
+    if (!window.confirm(`Delete ${blog.title} by ${blog.author}?`)) {
+      return;
+    }
     blogService.deleteBlog(blog.id);
     setBlogs(blogs.filter((b) => b.id != blog.id));
   };

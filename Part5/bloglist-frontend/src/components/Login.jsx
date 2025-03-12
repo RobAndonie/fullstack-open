@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import login from "../services/loginService";
 import blogs from "../services/blogs";
+import PropTypes from "prop-types";
 
 export default function Login({
   setUser,
@@ -67,3 +68,9 @@ export default function Login({
     </div>
   );
 }
+
+Login.propTypes = {
+  setUser: PropTypes.func.isRequired,
+  setShowNotification: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
+};
