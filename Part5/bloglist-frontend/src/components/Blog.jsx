@@ -19,7 +19,7 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
   };
 
   return (
-    <div>
+    <div data-testid="blog">
       {detailsShown ? (
         <div>
           <div style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
@@ -32,7 +32,9 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ display: "flex", gap: "8px" }}>
               <span>{likes} likes</span>
-              <button onClick={handleLike}>Like</button>
+              <button onClick={handleLike} data-testid="like-button">
+                Like
+              </button>
             </div>
 
             <span>{blog.url}</span>
@@ -42,7 +44,11 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
                 <span style={{ display: "block" }}>{blog.user.name}</span>
 
                 {blog.user.username === user.username && (
-                  <button style={{ width: "auto" }} onClick={handleDelete}>
+                  <button
+                    style={{ width: "auto" }}
+                    onClick={handleDelete}
+                    data-testid="delete-button"
+                  >
                     Delete
                   </button>
                 )}
@@ -57,7 +63,12 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
           <span>
             {blog.title} {blog.author}
           </span>
-          <button onClick={() => setDetailsShown(true)}>Show</button>
+          <button
+            onClick={() => setDetailsShown(true)}
+            data-testid="details-button"
+          >
+            Show
+          </button>
         </div>
       )}
     </div>

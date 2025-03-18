@@ -50,6 +50,7 @@ export default function Login({
             value={username}
             name="username"
             onChange={(e) => setUsername(e.target.value)}
+            data-testid="username"
           />
         </div>
 
@@ -60,6 +61,7 @@ export default function Login({
             value={password}
             name="password"
             onChange={(e) => setPassword(e.target.value)}
+            data-testid="password"
           />
         </div>
 

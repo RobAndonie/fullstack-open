@@ -40,10 +40,11 @@ const App = () => {
     <div>
       {showNotification && <Notification notification={notification} />}
 
+      <h2>blogs</h2>
+
       {user ? (
         <div>
           <h1>Welcome {user.name}!</h1>
-          <h2>blogs</h2>
 
           <div
             style={{

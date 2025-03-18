@@ -46,6 +46,7 @@ export default function NewBlog({
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          data-testid="title"
         />
       </div>
 
@@ -56,6 +57,7 @@ export default function NewBlog({
           name="author"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
+          data-testid="author"
         />
       </div>
 
@@ -66,10 +68,13 @@ export default function NewBlog({
           name="url"
           value={url}
           onChange={(e) => setURL(e.target.value)}
+          data-testid="url"
         />
       </div>
 
-      <button type="submit">Submit</button>
+      <button type="submit" data-testid="submit">
+        Submit
+      </button>
     </form>
   );
 }

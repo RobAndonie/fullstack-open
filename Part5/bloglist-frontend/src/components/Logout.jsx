@@ -4,5 +4,9 @@ export default function Logout({ setUser }) {
     setUser(null);
   };
 
-  return <button onClick={handleLogout}>Logout</button>;
+  return (
+    <button onClick={handleLogout} data-testid="logout-button">
+      Logout
+    </button>
+  );
 }
